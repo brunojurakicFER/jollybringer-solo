@@ -11,22 +11,23 @@ import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers("/", "/static/index.html", "/static/**").permitAll()
-                                .anyRequest().authenticated()
-                )
-                .oauth2Login(oauth2Login ->
-                        oauth2Login
-                                .defaultSuccessUrl("/")
-                                .userInfoEndpoint(userInfoEndpoint ->
-                                        userInfoEndpoint.oidcUserService(new OidcUserService())
-                                )
-                );
-        return http.build();
-    }
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+      http
+          .csrf(csrf -> csrf.disable())
+          .authorizeHttpRequests(authorizeRequests ->
+              authorizeRequests
+                  .requestMatchers("/", "/index.html", "/assets/**", "/vite.svg").permitAll()
+                  .requestMatchers("/login").permitAll()
+                  .anyRequest().authenticated()
+          )
+          .oauth2Login(oauth2Login ->
+              oauth2Login
+                  .defaultSuccessUrl("/dashboard")
+                  .userInfoEndpoint(userInfoEndpoint ->
+                      userInfoEndpoint.oidcUserService(new OidcUserService())
+                  )
+          );
+      return http.build();
+  }
 }
