@@ -1,21 +1,23 @@
-# Importing JDK and copying required files
-FROM openjdk:21-jdk AS build
+# Startna faza
+FROM openjdk:21-jdk-slim
+
+# Instaliraj Maven
+RUN apt-get update && apt-get install -y maven
+
+# Postavi radni direktorijum
 WORKDIR /app
-COPY pom.xml .
-COPY src src
 
-# Copy Maven wrapper
-COPY mvnw .
-COPY .mvn .mvn
+# Kopiraj sve projektne fajlove
+COPY . .
 
-# Set execution permission for the Maven wrapper
-RUN chmod +x ./mvnw
-RUN ./mvnw clean package -DskipTests
+# Izvrši Maven build
+RUN mvn package -DskipTests
 
-# Stage 2: Create the final Docker image using OpenJDK 19
-FROM openjdk:21-jdk
-VOLUME /tmp
+# Kopiraj JAR fajl
+COPY target/*.jar /app.jar
 
-# Copy the JAR from the build stage
-COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+EXPOSE 8080
+
+# Definiši komandnu liniju za pokretanje aplikacije
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+EXPOSE 8080
