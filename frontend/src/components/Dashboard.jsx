@@ -1,10 +1,18 @@
 import React from 'react';
+import Header from "./Header.jsx";
 
-const Dashboard = () => {
+const Dashboard = ({status}) => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!wqeqww</p>
+    <div className={'bg-black'}>
+      <Header status={status}/>
+      <div className={'flex justify-between'}>
+        <div className={'w-1/2'}>
+          {/*<Activities/>*/}
+        </div>
+        <div className={'w-1/2'}>
+          {/*<Chat/>*/}
+        </div>
+      </div>
     </div>
   );
 };

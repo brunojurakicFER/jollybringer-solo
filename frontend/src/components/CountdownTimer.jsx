@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import '../styles/CountdownTimer.css'
 import calculateTimeLeft from "../utils/functions.js"
 
 const CountdownTimer = ({page}) => {
