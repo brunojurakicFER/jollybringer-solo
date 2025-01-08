@@ -1,21 +1,17 @@
 package hr.fer.jollybringer.domain;
 
 import jakarta.persistence.*;
-
 import java.util.UUID;
 
 @Entity
-@Table(name = "\"User\"")
-public class User {
+@Table(name = "Role")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false, unique = true)
-    private String email;
 
     // Getters and setters
     public UUID getId() {
@@ -32,13 +28,5 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
