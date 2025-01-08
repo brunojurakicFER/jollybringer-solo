@@ -71,7 +71,7 @@ const Header = () => {
   }
 
   const handleLogout = () => {
-    
+    window.location.href = '/'
   }
 
   // const handleApplyForPresident = async () => {
