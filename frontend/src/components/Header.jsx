@@ -5,6 +5,8 @@ import CountdownTimer from "./CountdownTimer.jsx";
 import {Menu} from "lucide-react";
 import axios from "axios";
 import log from "eslint-plugin-react/lib/util/log.js";
+import CreateGroupModal from "./CreateGroupModal.jsx";
+import RoleModal from "./RoleModal.jsx";
 
 const SELECTED_GROUP_KEY = 'selectedGroup';
 
@@ -74,17 +76,17 @@ const Header = () => {
     window.location.href = '/'
   }
 
-  // const handleApplyForPresident = async () => {
-  //   try {
-  //     await axios.post('/api/apply-president');
-  //     setShowRoleModal(false);
-  //     toast.success('Application submitted successfully!');
-  //   } catch (error) {
-  //     const errorMessage = error.response?.data?.error || 'Failed to submit application';
-  //     toast.error(errorMessage);
-  //     setShowRoleModal(false)
-  //   }
-  // };
+  const handleApplyForPresident = async () => {
+    try {
+      await axios.post('/apply-president');
+      setShowRoleModal(false);
+      toast.success('Application submitted successfully!');
+    } catch (error) {
+      const errorMessage = error.response?.data?.error || 'Failed to submit application';
+      toast.error(errorMessage);
+      setShowRoleModal(false)
+    }
+  };
 
 
   // const handleAdminRedirect = () => {
@@ -166,18 +168,18 @@ const Header = () => {
           </div>
         )}
       </div>
-      {/*{showGroupModal && (*/}
-      {/*  <CreateGroupModal*/}
-      {/*    isOpen={showGroupModal}*/}
-      {/*    onClose={() => setShowGroupModal(false)}*/}
-      {/*    onGroupCreated={fetchUserGroups}  // Add this prop*/}
-      {/*  />*/}
-      {/*)}*/}
-      {/*<RoleModal*/}
-      {/*  isOpen={showRoleModal}*/}
-      {/*  onClose={() => setShowRoleModal(false)}*/}
-      {/*  onApply={handleApplyForPresident}*/}
-      {/*/>*/}
+      {showGroupModal && (
+        <CreateGroupModal
+          isOpen={showGroupModal}
+          onClose={() => setShowGroupModal(false)}
+          // onGroupCreated={fetchUserGroups}  // Add this prop
+        />
+      )}
+      <RoleModal
+        isOpen={showRoleModal}
+        onClose={() => setShowRoleModal(false)}
+        onApply={handleApplyForPresident}
+      />
 
       <ToastContainer
         position="bottom-right"
