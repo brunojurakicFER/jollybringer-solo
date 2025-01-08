@@ -2,6 +2,7 @@ package hr.fer.jollybringer.controller;
 
 import hr.fer.jollybringer.dao.*;
 import hr.fer.jollybringer.domain.*;
+import hr.fer.jollybringer.dto.PresidentApplicationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -72,5 +73,27 @@ public class UserController {
             }
         }
         return "User not found!";
+    }
+
+    @GetMapping("/president-applications")
+    public List<PresidentApplicationDTO> getAllPresidentApplications() {
+        List<PresidentApplication> applications = presidentApplicationRepository.findAll();
+        List<PresidentApplicationDTO> applicationDTOs = new ArrayList<>();
+
+        for (PresidentApplication application : applications) {
+            Optional<User> userOptional = userRepository.findById(application.getUserId());
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                PresidentApplicationDTO dto = new PresidentApplicationDTO();
+                dto.setId(application.getId());
+                dto.setUserId(application.getUserId());
+                dto.setUserName(user.getName());
+                dto.setUserEmail(user.getEmail());
+                dto.setStatus(application.getStatus());
+                dto.setCreatedAt(application.getCreatedAt());
+                applicationDTOs.add(dto);
+            }
+        }
+        return applicationDTOs;
     }
 }

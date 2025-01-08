@@ -21,7 +21,7 @@ const CountdownTimer = ({page}) => {
             <span key={interval}>
               {timeLeft[interval]}{interval}{" "}
             </span>
-          ))} to <span>Christmas!</span>
+          ))} to <span className={page === 'Login' ? '' : 'text-red-600'}>Christmas!</span>
         </div>
       ) : (
         <span>Merry Christmas!</span>
