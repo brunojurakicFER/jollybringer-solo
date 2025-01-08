@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {toast} from 'react-toastify';
 import Header from './Header.jsx';
+import withAdminProtection from "./withAdminProtection.jsx";
 
 const AdminDashboard = () => {
   const [applications, setApplications] = useState([]);
@@ -104,4 +105,4 @@ const AdminDashboard = () => {
   </div>);
 };
 
-export default AdminDashboard;
+export default withAdminProtection(AdminDashboard);
