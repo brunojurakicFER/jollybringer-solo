@@ -64,7 +64,7 @@ export default function CreateGroupModal({ isOpen, onClose, onGroupCreated }) {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
             >
               Create Group
             </button>

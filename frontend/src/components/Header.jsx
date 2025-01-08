@@ -4,7 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import CountdownTimer from "./CountdownTimer.jsx";
 import {Menu} from "lucide-react";
 import axios from "axios";
-import log from "eslint-plugin-react/lib/util/log.js";
 import CreateGroupModal from "./CreateGroupModal.jsx";
 import RoleModal from "./RoleModal.jsx";
 
@@ -53,10 +52,6 @@ const Header = () => {
     };
   }, [menuRef]);
 
-
-  // const handleLogout = async () => {
-  //   await signOut({callbackUrl: '/login'});
-  // };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

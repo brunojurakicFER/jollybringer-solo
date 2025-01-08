@@ -20,7 +20,7 @@ const RoleModal = ({ isOpen, onClose, onApply }) => {
           </button>
           <button
             onClick={onApply}
-            className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
           >
             Apply for President
           </button>
