@@ -89,10 +89,10 @@ const Header = () => {
   };
 
 
-  // const handleAdminRedirect = () => {
-  //   router.push('/dashboard/admin');
-  //   setIsMenuOpen(false); // Close menu after clicking
-  // }
+  const handleAdminRedirect = () => {
+    window.location.href = '/dashboard/admin'
+    setIsMenuOpen(false); // Close menu after clicking
+  }
 
   const handleGroupClick = (group) => {
     // Store both id and name to have complete group info
@@ -117,7 +117,7 @@ const Header = () => {
 
   return (
     <>
-      <div className={'text-white flex items-center justify-between h-12 border-b py-[34px] px-5'}>
+      <div className={'text-white flex items-center justify-between h-12 border-b py-[34px] px-5 bg-black'}>
         <h1 className={'text-3xl hover:cursor-pointer'} onClick={() => {
           window.location.href = "/dashboard"
         }}>Jollybringer</h1>
@@ -159,9 +159,9 @@ const Header = () => {
               {role === 'Admin' && (
                 <>
                   <hr/>
-                  {/*<li onClick={handleAdminRedirect}*/}
-                  {/*    className={'py-2 px-4 hover:bg-gray-200 cursor-pointer bg-white rounded-[6px] text-black text-center'}>Admin*/}
-                  {/*</li>*/}
+                  <li onClick={handleAdminRedirect}
+                      className={'py-2 px-4 hover:bg-gray-200 cursor-pointer bg-white rounded-[6px] text-black text-center'}>Admin
+                  </li>
                 </>
               )}
             </ul>
