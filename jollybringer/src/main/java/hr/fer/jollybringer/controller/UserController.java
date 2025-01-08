@@ -96,4 +96,35 @@ public class UserController {
         }
         return applicationDTOs;
     }
+
+    @PatchMapping("/president-applications/{id}")
+    public String updateApplicationStatus(@PathVariable UUID id, @RequestBody Map<String, String> request) {
+        Optional<PresidentApplication> applicationOptional = presidentApplicationRepository.findById(id);
+        if (applicationOptional.isPresent()) {
+            PresidentApplication application = applicationOptional.get();
+            String status = request.get("status");
+            if ("Approved".equalsIgnoreCase(status)) {
+                Optional<User> userOptional = userRepository.findById(application.getUserId());
+                if (userOptional.isPresent()) {
+                    User user = userOptional.get();
+                    // Update user's role to 'President' for the group 'NO_GROUP'
+                    Optional<Group> noGroupOptional = groupRepository.findByName("NO_GROUP");
+                    if (noGroupOptional.isPresent()) {
+                        Group noGroup = noGroupOptional.get();
+                        Optional<Membership> membershipOptional = membershipRepository.findByUserIdAndGroupId(user.getId(), noGroup.getId());
+                        if (membershipOptional.isPresent()) {
+                            Membership membership = membershipOptional.get();
+                            Role presidentRole = roleRepository.findByName("President").orElseThrow(() -> new RuntimeException("Role not found"));
+                            membership.setRoleId(presidentRole.getId());
+                            membershipRepository.save(membership);
+                        }
+                    }
+                }
+            }
+            // Delete the application
+            presidentApplicationRepository.delete(application);
+            return "Application status updated and entry deleted.";
+        }
+        return "Application not found.";
+    }
 }
