@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 
-* {
-    color: white;
+.countdown-wrapper div span {
+    font-size: 22px;
+}
+
+.countdown-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 

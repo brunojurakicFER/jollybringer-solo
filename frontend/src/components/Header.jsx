@@ -3,6 +3,8 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CountdownTimer from "./CountdownTimer.jsx";
 import {Menu} from "lucide-react";
+import axios from "axios";
+import log from "eslint-plugin-react/lib/util/log.js";
 
 const SELECTED_GROUP_KEY = 'selectedGroup';
 
@@ -15,20 +17,21 @@ const Header = () => {
   const [userGroups, setUserGroups] = useState([])
   const [selectedGroup, setSelectedGroup] = useState()
 
-  // const fetchUserGroups = async () => {
-  //   const response = await axios.get('/api/user')
-  //   setUserGroups(response.data.memberships.map(m => m.group))
-  // }
+  const fetchUserData = async () => {
+    const response = await axios.get('/user')
+    let groups = []
+    response.data.groups.forEach(group => {
+      if (group.group.name === 'NO_GROUP') {
+        setRole(group.role.name)
+      } else {
+        groups += group.group.name
+      }
+    })
+  }
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     const response = await axios.get('/api/user')
-  //     setRole(response.data.memberships[0].role.name)
-  //     setUserGroups(response.data.memberships.map(m => m.group))
-  //   }
-  //   fetchUserData()
-  //   setSelectedGroup(getSelectedGroup()?.name)
-  // }, [])
+  useEffect(() => {
+    fetchUserData().then(r => {})
+  }, [])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -65,6 +68,10 @@ const Header = () => {
       setShowGroupModal(true)
       setIsMenuOpen(false)
     }
+  }
+
+  const handleLogout = () => {
+    
   }
 
   // const handleApplyForPresident = async () => {
@@ -108,9 +115,9 @@ const Header = () => {
 
   return (
     <>
-      <div className={'flex items-center justify-between h-12 border-b py-[34px] px-5'}>
+      <div className={'text-white flex items-center justify-between h-12 border-b py-[34px] px-5'}>
         <h1 className={'text-3xl hover:cursor-pointer'} onClick={() => {
-          router.push('/dashboard')
+          window.location.href = "/dashboard"
         }}>Jollybringer</h1>
         <CountdownTimer page/>
         <div className={`flex items-center gap-10`}>
@@ -120,10 +127,10 @@ const Header = () => {
           )}
           <Menu
             data-menu-icon
-            className={`size-8 cursor-pointer ${isMenuOpen ? 'text-purple-600' : ''}`}
+            className={`size-8 cursor-pointer ${isMenuOpen ? 'text-red-600' : ''}`}
             onClick={toggleMenu}
           />
-          <button className={'text-2xl'}>
+          <button className={'text-2xl'} onClick={handleLogout}>
             Logout
           </button>
         </div>

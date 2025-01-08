@@ -16,12 +16,12 @@ const CountdownTimer = ({page}) => {
   return (
     <div className={page === 'Login' ? 'login-countdown-wrapper' : 'countdown-wrapper'}>
       {Object.keys(timeLeft).length ? (
-        <div>
+        <div className={'text-white'}>
           {Object.keys(timeLeft).map((interval) => (
             <span key={interval}>
               {timeLeft[interval]}{interval}{" "}
             </span>
-          ))} to <span>Christmas</span>!
+          ))} to <span>Christmas!</span>
         </div>
       ) : (
         <span>Merry Christmas!</span>
